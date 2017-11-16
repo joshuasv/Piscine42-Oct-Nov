@@ -6,21 +6,21 @@
 #    By: jsoutelo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/13 15:34:53 by jsoutelo          #+#    #+#              #
-#    Updated: 2017/11/14 23:20:09 by jsoutelo         ###   ########.fr        #
+#    Updated: 2017/11/15 22:24:01 by jsoutelo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DIR = ./files/
 FLAGS = -Wall -Werror -Wextra 
-TEST = perl map_gen.pl 7 5 2 | ./a.out
+TEST = perl map_gen.pl 10 10 3 | ./a.out
 all:
-	gcc $(FLAGS) main.c	ft_list_push_back.c ft_create_elem.c ft_list_size.c pre_functions.c
+	@gcc $(FLAGS) main.c	ft_list_push_back.c ft_create_elem.c ft_list_size.c pre_functions.c ft_atoi.c al_functions.c
 
 clean:
-	/bin/rm -f *.o
+	@/bin/rm -f *.o
 
 fclean:
-	/bin/rm -f a.out
+	@/bin/rm -f a.out
 
 test:
 	@$(TEST)

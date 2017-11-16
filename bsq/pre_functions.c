@@ -6,7 +6,7 @@
 /*   By: jsoutelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 14:32:12 by jsoutelo          #+#    #+#             */
-/*   Updated: 2017/11/15 12:50:44 by jsoutelo         ###   ########.fr       */
+/*   Updated: 2017/11/15 21:27:57 by jsoutelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,20 @@ char		*from_llist_to_arr(void)
 t_bsqinfo	*get_information(char *array)
 {
 	t_bsqinfo *info;
+	int i;
 
+	i = 0;
 	info = malloc(sizeof(t_bsqinfo));
-	info->lines = array[0];
-	info->empty = array[1];
-	info->obstacle = array[2];
-	info->full = array[3];
+	info->lines = ft_atoi(array);
+	while (*array >= '0' && *array <= '9')
+	{
+		i++;
+		array++;
+	}
+	array = array - i;
+	info->empty = array[i++];
+	info->obstacle = array[i++];
+	info->full = array[i];
 	return (info);
 }
 
@@ -86,54 +94,27 @@ char		**get_table(char *array, int width, int height)
 {
 	char		**table;
 	int			i;
-	int 		j;
+	int			j;
 
 	i = 0;
 	j = 0;
 	while (*array != '\n')
-	{
 		array++;
-	}
 	array++;
 	table = malloc(sizeof(char*) * height);
 	while (i < height)
-	{
-		table[i] = malloc(sizeof(char) * (width + 1));
-		i++;
-	}
+		table[i++] = malloc(sizeof(char) * (width + 1));
 	i = 0;
 	while (*array != '\0')
 	{
 		if (*array != '\n')
-		{
-			table[i][j] = *array;
-			j++;
-			array++;
-		}
+			table[i][j++] = *array;
 		else
 		{
-			table[i][j] = '\0';
-			i++;
+			table[i++][j] = '\0';
 			j = 0;
-			array++;
 		}
+		array++;
 	}
 	return (table);
-}
-
-int         main(void)
-{
-	char        *array;
-	t_bsqinfo   *info;
-	char        **table;
-	int			width;
-	int 		height;
-
-	array = from_llist_to_arr();
-	info = get_information(array);
-	height = info->lines - '0';
-	width = get_width(array);
-	table = get_table(array, width, height);
-
-	return (0);
 }
