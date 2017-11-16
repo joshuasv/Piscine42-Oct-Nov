@@ -6,7 +6,7 @@
 /*   By: jsoutelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 22:21:02 by jsoutelo          #+#    #+#             */
-/*   Updated: 2017/11/15 23:06:12 by jsoutelo         ###   ########.fr       */
+/*   Updated: 2017/11/16 13:30:18 by jsoutelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ int	main(void)
 	char            obstacle;
 	char            **adding;
 	char            **square;
+	char			**final;
+	int i = 1;
+	int k = 0;
+	int l = 0;
+	int p = 0;
 	int j = 0;
-	int i = 0;
 	array = from_llist_to_arr();
 	info = get_information(array);
 	height = info->lines;
@@ -39,16 +43,37 @@ int	main(void)
 	border = al_border(table, width, height, obstacle);
 	adding = al_adding(border, width, height);
 	square = al_square(adding, width, height);
+	final = malloc(sizeof(char*) * height);
+	while (k < height)
+	{
+		final[k] = malloc(width + 1);
+		k++;
+	}
 	while(i < height + 1)
 	{
-		j = 0;
+		j = 1;
+		p = 0;
 		while(j < width + 1)
 		{
-			ft_putchar(square[i][j]);
+			if (square[i][j] == '0')
+			{
+				final[l][p] = 'o';	
+			}
+			else if (square[i][j] >= '1' && square[i][j] <= '9')
+			{
+				final[l][p] = '.';
+			}
+			else if (square[i][j] == 'x')
+			{
+				final[l][p] = 'x';
+			}
+			ft_putchar(final[l][p]);
 			j++;
+			p++;
 		}
 		ft_putchar('\n');
 		i++;
+		l++;
 	}
 	return (0);
 }
